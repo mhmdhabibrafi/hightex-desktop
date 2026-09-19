@@ -1,6 +1,6 @@
 import fs, { writeFileSync } from "fs";
 import path from "path";
-import { app, dialog } from "electron";
+import { app, dialog, shell } from "electron";
 import Store from "electron-store";
 import { ServerService } from "../service/server-service";
 import { LoggerService } from "../service/logger-service";
@@ -52,6 +52,12 @@ export class HighTexHandler {
       );
       writeFileSync(filePath, file);
       return filePath;
+    });
+    IPCMain.handle("file:openPath", async (_, filePath: string) => {
+      return await shell.openPath(filePath);
+    });
+    IPCMain.handle("file:showInFolder", async (_, filePath: string) => {
+      shell.showItemInFolder(filePath);
     });
     IPCMain.handle("hightex:pdf", async (event, id: string, wm = false) => {
       if (!id) {

@@ -173,11 +173,11 @@ export const Row = ({ doc, onRename, onDelete, onExport }: Props) => {
           duration: 15000,
           action: {
             label: "Buka File",
-            onClick: () => window.file?.openPath?.(result.path),
+            onClick: () => window.file.openPath(result.path),
           },
           cancel: {
             label: "Buka Folder",
-            onClick: () => window.file?.showInFolder?.(result.path),
+            onClick: () => window.file.showInFolder(result.path),
           },
         },
       );
